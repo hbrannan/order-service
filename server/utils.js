@@ -1,6 +1,6 @@
 var $ = require('jquery')(require('jsdom').jsdom().parentWindow);
 
-var getEnrollments = function (cb) {
+var getEnrollments = function (res) {
   console.log('getEnrollments called');
 
   var req = $.ajax({
@@ -14,12 +14,12 @@ var getEnrollments = function (cb) {
 
   req.done(function (data) {
     console.log('enrollments data retrieved', data);
-    return data;
+    return res.send(data);
   });
 
   req.fail(function (err) {
     console.log('enrollments data error', err);
-    return err;
+    return res.send(err);
   });
 };
 
@@ -49,7 +49,7 @@ var createUser = function (data, cb) {
 
     //for response error: if email taken, 1 message + data. else other message + data
     if (err.responseJSON.errors.email[0]) {
-      console.log('calling fetchUser')
+      console.log('calling fetchUser');
 
       //todo: make async so you can send back the appropriate message.
       return fetchUserId(data.email, cb);
