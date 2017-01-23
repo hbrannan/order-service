@@ -27,13 +27,19 @@ app.get('/enrollments', function (req, res) {
 });
 
 app.get('/user', function (req, res) {
-  var data = {
-    'first_name' : 'ServerSite',
-    'last_name' : 'Test',
-    'password' : '123456',
-    'email' : '222hannahbrannan@gmail.com'
-  };
-  utils.createUser(data, res);
+  console.log(req);
+  if (req.data || req.body){
+    console.log('req got it')''
+    utils.createUser(data, res);
+  } else {
+    var data = {
+      'first_name' : 'ServerSite',
+      'last_name' : 'Test',
+      'password' : '123456',
+      'email' : '222hannahbrannan@gmail.com'
+    };
+    utils.createUser(data, res);
+  }
 });
 
 app.get('/favicon.ico', function (req, res) {
