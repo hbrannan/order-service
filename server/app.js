@@ -27,8 +27,8 @@ app.get('/enrollments', function (req, res) {
 });
 
 app.get('/user', function (req, res) {
-  console.log('req is:', req, "REeeEEEEEEËËËËËËq is ", req.req.query);
-  if (req.query || req.req.query){
+  console.log('req is:', req, "BITCH is ", req.query);
+  if (req.query){
     console.log('req got it');
     utils.createUser(data, res);
   } else {
