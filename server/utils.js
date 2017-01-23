@@ -1,21 +1,24 @@
 var $ = require('jquery')(require("jsdom").jsdom().parentWindow);
 
 var getEnrollments = function () {
+  console.log('getEnrollments called');
+
   var req = $.ajax({
     url: 'https://api.thinkific.com/api/public/v1/enrollments/',
     method: 'GET',
     headers: {
-      'x-auth-api-key': process.env.xaapi,
-      'x-auth-subdomain': process.env.xasubdomain
+      'x-auth-api-key': process.env.thinkificXAuthKey,
+      'x-auth-subdomain': process.env.thinkificXAuthSubdomain
     }
   });
 
   req.done(function (data) {
-    console.log('enrollments data retrieved');
+    console.log('enrollments data retrieved', data);
     return data;
   });
 
   req.fail(function (err) {
+    console.log('enrollments data error', process.env.thinkificXAuthKey, process.env.thinkificXAuthSubdomain)
     return err;
   });
 };
@@ -27,15 +30,15 @@ var createUser = function (data) {
     'method': 'POST',
     'data': data,
     'headers': {
-      'x-auth-api-key': process.env.xaapi,
-      'x-auth-subdomain': process.env.xasubdomain
+      'x-auth-api-key': process.env.thinkificXAuthKey,
+      'x-auth-subdomain': process.env.thinkificXAuthSubdomain
     }
   };
   var req = $.ajax(settings);
 
   // harvest the `id` from the response to pass along to enrollment
   req.done(function (data) {
-    console.log(data, 'data--user');
+    console.log(data, 'data--user, calling enrollUser');
     //call enroll user
     return enrollUser(data.id);
   });
@@ -46,6 +49,7 @@ var createUser = function (data) {
 
     //for response error: if email taken, 1 message + data. else other message + data
     if (err.responseJSON.errors.email[0]) {
+      console.log('calling fetchUser')
 
       //todo: make async so you can send back the appropriate message.
       return fetchUserId(data.email);
@@ -54,7 +58,6 @@ var createUser = function (data) {
       return ['New user creation has failed.', err, err.responseJSON.errors.email[0]];
     }
   });
-
 };
 
 var fetchUserId = function (email) {
@@ -66,14 +69,14 @@ var fetchUserId = function (email) {
       'query[email]': email
     },
     'headers': {
-      'x-auth-api-key': process.env.xaapi,
-      'x-auth-subdomain': process.env.xasubdomain
+      'x-auth-api-key': process.env.thinkificXAuthKey,
+      'x-auth-subdomain': process.env.thinkificXAuthSubdomain
     }
   };
   var req = $.ajax(settings);
 
   req.done(function(response){
-    console.log(response);
+    console.log(response, 'calling enrollUser');
     return enrollUser(response.items[0].id);
   });
 
@@ -87,7 +90,7 @@ var enrollUser = function (id) {
   console.log('enrollUser is called')
   var data = {
     'user_id': id,
-    'course_id': process.env.courseId,
+    'course_id': process.env.thinkificCourseId,
   };
 
   var settings = {
@@ -95,8 +98,8 @@ var enrollUser = function (id) {
     'method': 'POST',
     'data': data,
     'headers': {
-      'x-auth-api-key': process.env.xaapi,
-      'x-auth-subdomain': process.env.xasubdomain
+      'x-auth-api-key': process.env.thinkificXAuthKey,
+      'x-auth-subdomain': process.env.thinkificXAuthSubdomain
     }
   };
   var req = $.ajax(settings);

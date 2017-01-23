@@ -6,8 +6,6 @@ var allowCrossDomain = function(req, res, next) {
     res.header('Access-Control-Allow-Origin', '*');
     res.header('Access-Control-Allow-Methods', 'GET,POST,OPTIONS');
     res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization, Content-Length, X-Requested-With');
-
-    // intercept OPTIONS method
     if ('OPTIONS' == req.method) {
       res.send(200);
     }
@@ -17,7 +15,6 @@ var allowCrossDomain = function(req, res, next) {
 };
 
 var app = express();
-
 app.use(allowCrossDomain);
 express.static(path.join(__dirname, 'client'));
 
@@ -39,7 +36,7 @@ app.get('/user', function (req, res) {
     'email' : '222hannahbrannan@gmail.com'
   };
 
-  res.send(utils.createUser(data));
+  res.send(utils.createUser(data), 'we have initiated the user creation process');
 });
 
 app.get('/favicon.ico', function (req, res) {
