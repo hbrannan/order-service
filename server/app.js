@@ -23,7 +23,7 @@ app.get('/', function (req, res) {
 });
 
 app.get('/enrollments', function (req, res) {
-  res.send(utils.getEnrollments(res.send));
+  utils.getEnrollments(res.send);
 });
 
 app.get('/user', function (req, res) {
