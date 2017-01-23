@@ -23,20 +23,17 @@ app.get('/', function (req, res) {
 });
 
 app.get('/enrollments', function (req, res) {
-  console.log('enrollments Hit')
-  res.send(utils.getEnrollments());
+  res.send(utils.getEnrollments(res.send));
 });
 
 app.get('/user', function (req, res) {
-  console.log('user hit');
   var data = {
     'first_name' : 'ServerSite',
     'last_name' : 'Test',
     'password' : '123456',
     'email' : '222hannahbrannan@gmail.com'
   };
-
-  res.send(utils.createUser(data), 'we have initiated the user creation process');
+  utils.createUser(data, res.send);
 });
 
 app.get('/favicon.ico', function (req, res) {
