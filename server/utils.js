@@ -86,7 +86,7 @@ var fetchUserId = function (email, cb) {
   });
 };
 
-var enrollUser = function (id) {
+var enrollUser = function (id, cb) {
   console.log('enrollUser is called')
   var data = {
     'user_id': id,
