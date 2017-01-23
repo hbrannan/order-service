@@ -14,12 +14,12 @@ var getEnrollments = function (cb) {
 
   req.done(function (data) {
     console.log('enrollments data retrieved', data);
-    return cb(data);
+    return data;
   });
 
   req.fail(function (err) {
-    console.log('enrollments data error', process.env.thinkificXAuthKey, process.env.thinkificXAuthSubdomain)
-    return cb(err);
+    console.log('enrollments data error', err);
+    return err;
   });
 };
 
