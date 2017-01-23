@@ -106,7 +106,7 @@ var enrollUser = function (id, cb) {
 
   req.done(function (data) {
     console.log(data, 'enrollment complete');
-    return cb([data, 'final enrollment data'];
+    return cb([data, 'final enrollment data']);
   });
 
   req.fail(function (err) {
