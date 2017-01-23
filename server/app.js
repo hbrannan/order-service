@@ -29,7 +29,7 @@ app.get('/enrollments', function (req, res) {
 app.get('/user', function (req, res) {
   console.log(req);
   if (req.data || req.body){
-    console.log('req got it')''
+    console.log('req got it');
     utils.createUser(data, res);
   } else {
     var data = {
