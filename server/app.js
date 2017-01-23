@@ -1,6 +1,7 @@
 var express = require('express');
 var utils = require('./utils.js');
 var path = require('path');
+var port = process.env.PORT || 5000;
 
 var app = express();
 express.static(path.join(__dirname, 'client'))
@@ -31,3 +32,6 @@ app.get('/favicon.ico', function (req, res) {
   res.send('favicon not found');
 });
 
+app.listen(port, function () {
+  console.log('Example app listening on port ' + port);
+});
