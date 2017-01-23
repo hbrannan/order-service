@@ -1,0 +1,24 @@
+{
+  "name": "config-server",
+  "version": "1.0.0",
+  "description": "Serve config vars securely",
+  "main": "app.js",
+  "scripts": {
+    "test": "test",
+    "start": "nodemon server/app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hbrannan/config-server.git"
+  },
+  "author": "Hannah Brannan",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/hbrannan/config-server/issues"
+  },
+  "homepage": "https://github.com/hbrannan/config-server#readme",
+  "dependencies": {
+    "express": "^4.14.0",
+    "jquery": "^3.1.1"
+  }
+}
