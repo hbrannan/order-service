@@ -27,18 +27,11 @@ app.get('/enrollments', function (req, res) {
 });
 
 app.get('/user', function (req, res) {
-  console.log('req is:', req, "BITCH is ", req.query);
+  console.log(req.query 'req query');
   if (req.query){
-    console.log('req got it');
-    utils.createUser(data, res);
+    utils.createUser(req.query, res);
   } else {
-    var data = {
-      'first_name' : 'ServerSite',
-      'last_name' : 'Test',
-      'password' : '123456',
-      'email' : '222hannahbrannan@gmail.com'
-    };
-    utils.createUser(data, res);
+    res.send('error with user data');
   }
 });
 

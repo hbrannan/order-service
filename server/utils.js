@@ -25,6 +25,7 @@ var getEnrollments = function (res) {
 
 //todo: incl. next step HERE (but also send back data) && refactor to process.env.config var references.
 var createUser = function (data, res) {
+  console.log('calling createUser with ', data);
   var settings = {
     'url': 'https://api.thinkific.com/api/public/v1/users',
     'method': 'POST',
