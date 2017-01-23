@@ -40,7 +40,7 @@ var createUser = function (data, res) {
   req.done(function (data) {
     console.log(data, 'data--user, calling enrollUser');
     //call enroll user
-    return enrollUser(data.id, res.send);
+    return enrollUser(data.id, res);
   });
 
   req.fail(function (err) {
@@ -52,7 +52,7 @@ var createUser = function (data, res) {
       console.log('calling fetchUser');
 
       //todo: make async so you can send back the appropriate message.
-      return fetchUserId(data.email, res.send);
+      return fetchUserId(data.email, res);
       // return ['New user creation has failed. Checking to see if user already exists.', err, err.responseJSON.errors.email[0]];
     } else {
       return res.send(['New user creation has failed.', err, err.responseJSON.errors.email[0]]);
@@ -77,7 +77,7 @@ var fetchUserId = function (email, res) {
 
   req.done(function(response){
     console.log(response, 'calling enrollUser');
-    return enrollUser(response.items[0].id);
+    return enrollUser(response.items[0].id, res);
   });
 
   req.fail(function(err){
