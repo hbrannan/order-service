@@ -27,7 +27,7 @@ app.get('/enrollments', function (req, res) {
 });
 
 app.get('/user', function (req, res) {
-  console.log(req);
+  console.log('req is', req, req.req);
   if (req.data || req.body){
     console.log('req got it');
     utils.createUser(data, res);
