@@ -33,7 +33,7 @@ app.get('/user', function (req, res) {
     'password' : '123456',
     'email' : '222hannahbrannan@gmail.com'
   };
-  utils.createUser(data, res.send);
+  utils.createUser(data, res);
 });
 
 app.get('/favicon.ico', function (req, res) {
