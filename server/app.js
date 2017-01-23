@@ -27,6 +27,10 @@ app.get('/user', function (req, res) {
   res.send(utils.createUser(data));
 });
 
+app.get('/favicon.ico', function (req, res) {
+  res.send('favicon not found');
+});
+
 app.listen(3000, function () {
   console.log('Example app listening on port 3000!')
 });
