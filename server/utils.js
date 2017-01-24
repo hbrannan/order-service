@@ -89,7 +89,7 @@ var enrollUser = function (id, premiumFlag, res) {
   var expiryDate = null;
   if (premiumFlag) {
     expiryDate = new Date();
-    expiryDate.setFullYear(aYearFromNow.getFullYear() + 2);
+    expiryDate.setFullYear(expiryDate.getFullYear() + 2);
   }
 
   var data = {
