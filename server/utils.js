@@ -45,14 +45,12 @@ var createUser = function (userData, res) {
     console.log(err, 'createUser error');
 
     //for response error: if email taken, 1 message + data. else other message + data
-    if (err.responseJSON.errors.email[0]) {
-      console.log('calling fetchUser');
-
+    if (err.responseJSON.errors.email) {
       //todo: make async so you can send back the appropriate message.
       return fetchUserId(userData.email, userData.premiumFlag, res);
       // return ['New user creation has failed. Checking to see if user already exists.', err, err.responseJSON.errors.email[0]];
     } else {
-      return res.send(['New user creation has failed.', err, err.responseJSON.errors.email[0]]);
+      return res.send(['New user creation has failed. Please ensure all information meets form requirements and retry.', err, err.responseJSON.errors.email]);
     }
   });
 };
