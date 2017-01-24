@@ -1,8 +1,6 @@
 var $ = require('jquery')(require('jsdom').jsdom().parentWindow);
 
 var getEnrollments = function (res) {
-  console.log('getEnrollments called');
-
   var req = $.ajax({
     url: 'https://api.thinkific.com/api/public/v1/enrollments/',
     method: 'GET',
@@ -13,7 +11,7 @@ var getEnrollments = function (res) {
   });
 
   req.done(function (data) {
-    console.log('enrollments data retrieved', data);
+    console.log('enrollments data retrieved are', data);
     return res.send(data);
   });
 
@@ -23,12 +21,11 @@ var getEnrollments = function (res) {
   });
 };
 
-//todo: incl. next step HERE (but also send back data) && refactor to process.env.config var references.
-var createUser = function (data, res) {
+var createUser = function (userData, res) {
   var settings = {
     'url': 'https://api.thinkific.com/api/public/v1/users',
     'method': 'POST',
-    'data': data,
+    'data': userData,
     'headers': {
       'x-auth-api-key': process.env.thinkificXAuthKey,
       'x-auth-subdomain': process.env.thinkificXAuthSubdomain
@@ -40,7 +37,7 @@ var createUser = function (data, res) {
   req.done(function (data) {
     console.log(data, 'data--user, calling enrollUser');
     //call enroll user
-    return enrollUser(data.id, res);
+    return enrollUser(data.id, userData.premiumFlag, res);
   });
 
   req.fail(function (err) {
@@ -52,7 +49,7 @@ var createUser = function (data, res) {
       console.log('calling fetchUser');
 
       //todo: make async so you can send back the appropriate message.
-      return fetchUserId(data.email, res);
+      return fetchUserId(userData.email, userData.premiumFlag res);
       // return ['New user creation has failed. Checking to see if user already exists.', err, err.responseJSON.errors.email[0]];
     } else {
       return res.send(['New user creation has failed.', err, err.responseJSON.errors.email[0]]);
@@ -60,7 +57,7 @@ var createUser = function (data, res) {
   });
 };
 
-var fetchUserId = function (email, res) {
+var fetchUserId = function (email, premiumFlag, res) {
   console.log('fetchUserIsCalled');
   var settings = {
     'url': 'https://api.thinkific.com/api/public/v1/users/',
@@ -77,7 +74,7 @@ var fetchUserId = function (email, res) {
 
   req.done(function(response){
     console.log(response, 'calling enrollUser');
-    return enrollUser(response.items[0].id, res);
+    return enrollUser(response.items[0].id, premiumFlag, res);
   });
 
   req.fail(function(err){
@@ -86,11 +83,19 @@ var fetchUserId = function (email, res) {
   });
 };
 
-var enrollUser = function (id, res) {
-  console.log('enrollUser is called')
+var enrollUser = function (id, premiumFlag, res) {
+  console.log('enrollUser is called');
+
+  var expiryDate = null;
+  if (premiumFlag) {
+    expiryDate = new Date();
+    expiryDate.setFullYear(aYearFromNow.getFullYear() + 2);
+  }
+
   var data = {
     'user_id': id,
     'course_id': process.env.thinkificCourseId,
+    'expiry_date': expiryDate
   };
 
   var settings = {
