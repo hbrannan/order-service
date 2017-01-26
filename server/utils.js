@@ -48,7 +48,9 @@ var createUser = function (userData, res) {
     if (err.responseJSON.errors.email) {
       console.log(err.responseJSON.errors.email);
       //todo: make async so you can send back the appropriate message.
-      return fetchUserId(userData.email, userData.prepType, res);
+      if (err.responseJSON.errors.email[0] === 'has already been taken') {
+        return fetchUserId(userData.email, userData.prepType, res);
+      }
       //todo: this will likely be email[0]
       // return ['New user creation has failed. Checking to see if user already exists.', err, err.responseJSON.errors.email[0]];
     } else {
@@ -97,6 +99,7 @@ var enrollUser = function (id, prepType, res) {
     'course_id': process.env.thinkificCourseId,
     'expiry_date': expiryDate
   };
+  console.log('enroll User data', typeof data.user_id, typeof data.course_id, data.expiry_date);
 
   var settings = {
     'url': 'https://api.thinkific.com/api/public/v1/enrollments/',
