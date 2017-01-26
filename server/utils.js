@@ -97,7 +97,8 @@ var enrollUser = function (id, prepType, res) {
   var data = {
     'user_id': id,
     'course_id': process.env.thinkificCourseId,
-    'expiry_date': expiryDate
+    'expiry_date': expiryDate,
+    'activated_at': new Date()
   };
   console.log('enroll User data', typeof data.user_id, typeof data.course_id, data.expiry_date);
 
