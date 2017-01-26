@@ -37,7 +37,7 @@ var createUser = function (userData, res) {
   req.done(function (data) {
     console.log(data, 'data--user, calling enrollUser');
     //call enroll user
-    return enrollUser(data.id, userData.premiumFlag, res);
+    return enrollUser(data.id, userData.prepType, res);
   });
 
   req.fail(function (err) {
@@ -47,7 +47,7 @@ var createUser = function (userData, res) {
     //for response error: if email taken, 1 message + data. else other message + data
     if (err.responseJSON.errors.email) {
       //todo: make async so you can send back the appropriate message.
-      return fetchUserId(userData.email, userData.premiumFlag, res);
+      return fetchUserId(userData.email, userData.prepType, res);
       // return ['New user creation has failed. Checking to see if user already exists.', err, err.responseJSON.errors.email[0]];
     } else {
       return res.send(['New user creation has failed. Please ensure all information meets form requirements and retry.', err, err.responseJSON.errors.email]);
@@ -55,7 +55,7 @@ var createUser = function (userData, res) {
   });
 };
 
-var fetchUserId = function (email, premiumFlag, res) {
+var fetchUserId = function (email, prepType, res) {
   console.log('fetchUserIsCalled');
   var settings = {
     'url': 'https://api.thinkific.com/api/public/v1/users/',
@@ -72,7 +72,7 @@ var fetchUserId = function (email, premiumFlag, res) {
 
   req.done(function(response){
     console.log(response, 'calling enrollUser');
-    return enrollUser(response.items[0].id, premiumFlag, res);
+    return enrollUser(response.items[0].id, prepType, res);
   });
 
   req.fail(function(err){
@@ -81,11 +81,11 @@ var fetchUserId = function (email, premiumFlag, res) {
   });
 };
 
-var enrollUser = function (id, premiumFlag, res) {
+var enrollUser = function (id, prepType, res) {
   console.log('enrollUser is called');
 
   var expiryDate = null;
-  if (premiumFlag) {
+  if (prepType === 'Premium') {
     expiryDate = new Date();
     expiryDate.setFullYear(expiryDate.getFullYear() + 2);
   }
