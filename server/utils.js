@@ -89,7 +89,7 @@ var enrollUser = function (id, prepType, res) {
   console.log('enrollUser is called');
 
   var expiryDate = null;
-  if (prepType === 'Premium' || prepType === 'Waitlist') {
+  if (prepType === 'Premium' || prepType === 'Premium') {
     expiryDate = new Date();
     expiryDate.setFullYear(expiryDate.getFullYear() + 2);
   }
