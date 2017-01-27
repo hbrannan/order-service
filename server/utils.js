@@ -49,7 +49,7 @@ var createUser = function (userData, res) {
       console.log(err.responseJSON.errors.email);
       //todo: make async so you can send back the appropriate message.
       if (err.responseJSON.errors.email[0] === 'has already been taken') {
-        return fetchUserId(userData.email, userData.prepType, res);
+        return res.send('The email' + userData.email + 'has already been taken');
       }
       //todo: this will likely be email[0]
       // return ['New user creation has failed. Checking to see if user already exists.', err, err.responseJSON.errors.email[0]];
