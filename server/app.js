@@ -4,7 +4,7 @@ var path = require('path');
 var port = process.env.PORT || 5000;
 var allowCrossDomain = function(req, res, next) {
     res.header('Access-Control-Allow-Origin', '*');
-    res.header('Access-Control-Allow-Methods', 'GET,POST,OPTIONS');
+    res.header('Access-Control-Allow-Methods', 'GET,POST,PUT,OPTIONS');
     res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization, Content-Length, X-Requested-With');
     if ('OPTIONS' == req.method) {
       res.send(200);
@@ -22,9 +22,26 @@ app.get('/', function (req, res) {
   res.sendFile(path.join(__dirname, '../client', 'index.html'));
 });
 
-app.get('/enrollments', function (req, res) {
+app.get('/orders', function (req, res) {
   // utils.getEnrollments(res);
-  res.send('hit endrollments');
+  res.send('todo: send back an unstyled list of orders with status: order-placed');
+});
+
+app.post('/orders', function (req, res) {
+  // utils.getEnrollments(res);
+  res.send('todo: post a new order with form submission instantiating model');
+});
+
+app.put('/claim-order', function (req, res) {
+  // utils.getEnrollments(res);
+  res.send('todo: assign merchant');
+});
+
+app.put('/order-processed', function (req, res) {
+  // utils.getEnrollments(res);
+  res.send('todo: assign merchant');
+  // status -> "order-claimed"
+  // mfgName -> req.body.XX.merchantName
 });
 
 app.get('/user', function (req, res) {
