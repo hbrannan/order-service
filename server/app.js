@@ -23,19 +23,21 @@ app.get('/', function (req, res) {
 });
 
 app.get('/enrollments', function (req, res) {
-  utils.getEnrollments(res);
+  // utils.getEnrollments(res);
+  res.send('hit endrollments');
 });
 
 app.get('/user', function (req, res) {
-  if (req.query){
-    utils.createUser(req.query, res);
-  } else {
-    res.send('error with user data');
-  }
+    res.send('todo');
+  // if (req.query){
+  //   utils.createUser(req.query, res);
+  // } else {
+  //   res.send('error with user data');
+  // }
 });
 
 app.get('/favicon.ico', function (req, res) {
-  res.send('favicon not found');
+  res.send('screw the favicon already');
 });
 
 app.listen(port, function () {
