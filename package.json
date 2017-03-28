@@ -1,7 +1,7 @@
 {
-  "name": "config-server",
+  "name": "order-service",
   "version": "1.0.0",
-  "description": "Serve up thinkific data",
+  "description": "Submit and update sample orders",
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -9,14 +9,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/hbrannan/config-server.git"
+    "url": "git+https://github.com/hbrannan/order-service.git"
   },
   "author": "Hannah Brannan",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/hbrannan/config-server/issues"
+    "url": "https://github.com/hbrannan/order-service.git"
   },
-  "homepage": "https://github.com/hbrannan/config-server#readme",
+  "homepage": "https://github.com/hbrannan/order-service.git#readme",
   "dependencies": {
     "express": "^4.14.0",
     "jquery": "^3.1.1",
