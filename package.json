@@ -5,7 +5,7 @@
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server/app.js"
+    "start": "nodemon server/app.js"
   },
   "repository": {
     "type": "git",
@@ -18,9 +18,12 @@
   },
   "homepage": "https://github.com/hbrannan/order-service.git#readme",
   "dependencies": {
+    "bluebird": "^3.5.0",
     "express": "^4.14.0",
     "jquery": "^3.1.1",
-    "jsdom": "^3.1.2"
+    "jsdom": "^3.1.2",
+    "mongoose": "^4.9.2",
+    "nodemon": "^1.11.0"
   },
   "engines": {
     "node": "6.2.2"
