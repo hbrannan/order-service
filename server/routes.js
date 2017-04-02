@@ -1,8 +1,11 @@
-/* Modularizes order-service app routs
+/* Modularizes order-service app routes
+all of the rollowing router routes are subroutes of
+/orders-data
 ---------------------------------------------------*/
 
 var utils = require('./controllers');
 var router = require('express').Router();
+
 
 router.get('/order', utils.order.get);
 

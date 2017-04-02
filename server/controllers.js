@@ -1,4 +1,4 @@
-/* Defines route behavior
+/* Defines route data & behavior
 TODO:
 Promisify controller
 ---------------------------------------------------*/
@@ -25,29 +25,48 @@ module.exports = {
       });
     },
     post: function (req, res) {
+      console.log(req, req.body);
+
+      return new Promise(function(resolve, reject) {
+        var order = new model.Order({
+          status:'order-placed',
+          name: 'Truly being posted...',
+          address: 'Getting there..',
+          quantity: 250,
+          shipping_service: 'Ground',
+          shipping_price: 300,
+          unit_price: 300,
+          subtotal_price: 300,
+          tax: 300,
+          total: 300,
+          mfgName: 'null'
+        });
+
+        order.save(function(err){
+          if (err) {
+            console.log(err);
+            return reject(err);
+          } else {
+            console.log('saved: ', order);
+            return resolved(order);
+          }
+        })
+
+        .then (function (order) {
+          res.send(order);
+        })
+        .catch(function (err) {
+          console.error('err', err);
+          res.send('ERROR', err);
+        });
+      })
+
       //Create and save a new document
-      var order = new model.Order({
-        status:'order-placed',
-        name: 'Truly being posted...',
-        address: 'Getting there..',
-        quantity: 250,
-        shipping_service: 'Ground',
-        shipping_price: 300,
-        unit_price: 300,
-        subtotal_price: 300,
-        tax: 300,
-        total: 300,
-        mfgName: 'null'
-      });
+      //TODO: refactor to promise
       // Save it to database
-      order.save(function(err){
-        if(err)
-          console.log(err);
-        else
-          console.log('saved: ', order);
-      });
     }
   },
+
   user: {
     get: function (req, res) {
       res.send('TODO: get list of users');
