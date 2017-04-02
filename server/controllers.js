@@ -25,7 +25,8 @@ module.exports = {
       });
     },
     post: function (req, res) {
-      console.log('req iz', req);
+      console.log('req bodddy iz', req.body);
+      console.log('queryIz', req.query);
 
       return new Promise(function(resolve, reject) {
         var order = new model.Order({
@@ -53,21 +54,7 @@ module.exports = {
         });
       })
 
-      //Create and save a new document
-      //TODO: refactor to promise
-      // Save it to database
-    }
-  },
-
-  user: {
-    get: function (req, res) {
-      res.send('TODO: get list of users');
-    },
-    put: function (req, res) {
-      res.send('TODO: update user info');
-    },
-    post: function (req, res) {
-      res.send('TODO: add new user');
+      //TODO:  Save it to heroku-persisted database
     }
   },
 
@@ -82,6 +69,18 @@ module.exports = {
     put: function (req, res) {
       res.send('todo: specify mfgName');
       //order-placed -> order-claimed ?
+    }
+  },
+
+  user: {
+    get: function (req, res) {
+      res.send('TODO: get list of users');
+    },
+    put: function (req, res) {
+      res.send('TODO: update user info');
+    },
+    post: function (req, res) {
+      res.send('TODO: add new user');
     }
   }
 };
