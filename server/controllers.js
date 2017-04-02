@@ -27,7 +27,7 @@ module.exports = {
     post: function (req, res) {
       console.log('req bodddy iz', req.body);
       var formData = JSON.parse(req.query);
-      console.log('queryIz', req.query, formData);
+      console.log('queryIz', req.query, 'asObj', formData);
 
       return new Promise(function(resolve, reject) {
         var order = new model.Order({
