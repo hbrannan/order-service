@@ -51,8 +51,8 @@ module.exports = {
             return resolve(order);
           }
         })
-        .then (function (order) {
-          res.send(order);
+        .then (function (data) {
+          res.send('Thank you, your order has been submitted', data);
         })
         .catch(function (err) {
           console.error('err', err);
