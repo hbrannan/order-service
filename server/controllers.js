@@ -25,7 +25,7 @@ module.exports = {
       });
     },
     post: function (req, res) {
-      console.log(req, req.body);
+      console.log(req.body);
 
       return new Promise(function(resolve, reject) {
         var order = new model.Order({
@@ -51,9 +51,9 @@ module.exports = {
             return resolve(order);
           }
         })
-        .then (function (data) {
-          data.resultMessage = 'Thank you, your order has been submitted';
-          res.send(data);
+        .then (function (order) {
+          console.log(order, 'order iz');
+          res.send(order);
         })
         .catch(function (err) {
           console.error('err', err);
