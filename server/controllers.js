@@ -26,16 +26,17 @@ module.exports = {
     },
     post: function (req, res) {
       console.log('queryIz', req.query);
-      var formData = JSON.parse(req.query);
-      console.log('asObj', formData);
+      var entry = req.query;
 
       return new Promise(function(resolve, reject) {
         var order = new model.Order({
           status:'order-placed',
-          name: 'Truly being posted...',
-          address: 'Getting there..',
-          quantity: 250,
-          shipping_service: 'Ground',
+          name: entry.name,
+          address: entry.address,
+          quantity: entry.quantity,
+          material: entry.material,
+          dimension: entry.dimension,
+          shipping_service: entry.shippingOption,
           shipping_price: 300,
           unit_price: 300,
           subtotal_price: 300,
