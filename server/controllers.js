@@ -52,7 +52,8 @@ module.exports = {
           }
         })
         .then (function (data) {
-          res.send('Thank you, your order has been submitted', data);
+          data.resultMessage = 'Thank you, your order has been submitted';
+          res.send(data);
         })
         .catch(function (err) {
           console.error('err', err);
