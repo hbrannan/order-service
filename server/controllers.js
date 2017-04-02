@@ -1,4 +1,4 @@
-/* Defines route behavior
+/* Defines route data & behavior
 TODO:
 Promisify controller
 ---------------------------------------------------*/
@@ -25,38 +25,36 @@ module.exports = {
       });
     },
     post: function (req, res) {
-      //Create and save a new document
-      var order = new model.Order({
-        status:'order-placed',
-        name: 'Truly being posted...',
-        address: 'Getting there..',
-        quantity: 250,
-        shipping_service: 'Ground',
-        shipping_price: 300,
-        unit_price: 300,
-        subtotal_price: 300,
-        tax: 300,
-        total: 300,
-        mfgName: 'null'
-      });
-      // Save it to database
-      order.save(function(err){
-        if(err)
-          console.log(err);
-        else
-          console.log('saved: ', order);
-      });
-    }
-  },
-  user: {
-    get: function (req, res) {
-      res.send('TODO: get list of users');
-    },
-    put: function (req, res) {
-      res.send('TODO: update user info');
-    },
-    post: function (req, res) {
-      res.send('TODO: add new user');
+      console.log('req bodddy iz', req.body);
+      console.log('queryIz', req.query);
+
+      return new Promise(function(resolve, reject) {
+        var order = new model.Order({
+          status:'order-placed',
+          name: 'Truly being posted...',
+          address: 'Getting there..',
+          quantity: 250,
+          shipping_service: 'Ground',
+          shipping_price: 300,
+          unit_price: 300,
+          subtotal_price: 300,
+          tax: 300,
+          total: 300,
+          mfgName: 'null'
+        });
+
+        order.save()
+        .then (function (data) {
+          console.log(data, 'order iz');
+          res.send(data);
+        })
+        .catch(function (err) {
+          console.error('err', err);
+          res.send('ERROR', err);
+        });
+      })
+
+      //TODO:  Save it to heroku-persisted database
     }
   },
 
@@ -71,6 +69,18 @@ module.exports = {
     put: function (req, res) {
       res.send('todo: specify mfgName');
       //order-placed -> order-claimed ?
+    }
+  },
+
+  user: {
+    get: function (req, res) {
+      res.send('TODO: get list of users');
+    },
+    put: function (req, res) {
+      res.send('TODO: update user info');
+    },
+    post: function (req, res) {
+      res.send('TODO: add new user');
     }
   }
 };
