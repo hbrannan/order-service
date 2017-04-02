@@ -25,7 +25,7 @@ module.exports = {
       });
     },
     post: function (req, res) {
-      console.log(req.body);
+      console.log('req iz', req);
 
       return new Promise(function(resolve, reject) {
         var order = new model.Order({
@@ -42,18 +42,10 @@ module.exports = {
           mfgName: 'null'
         });
 
-        order.save(function(err){
-          if (err) {
-            console.log(err);
-            return reject(err);
-          } else {
-            console.log('saved: ', order);
-            return resolve(order);
-          }
-        })
-        .then (function (order) {
-          console.log(order, 'order iz');
-          res.send(order);
+        order.save()
+        .then (function (data) {
+          console.log(data, 'order iz');
+          res.send(data);
         })
         .catch(function (err) {
           console.error('err', err);
