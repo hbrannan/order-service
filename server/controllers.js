@@ -48,10 +48,9 @@ module.exports = {
             return reject(err);
           } else {
             console.log('saved: ', order);
-            return resolved(order);
+            return resolve(order);
           }
         })
-
         .then (function (order) {
           res.send(order);
         })
