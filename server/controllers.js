@@ -81,19 +81,21 @@ module.exports = {
 
   orderClaimed: {
     put: function (req, res) {
-      console.log('claimedOrder queryIz', req.query, req.query._id);
-      let reqData = JSON.parse(query.order)
+      console.log('claimedOrder nameIz', req.query.name, 'iDIz', req.query.order._id);
+      let reqData = JSON.parse(req.query.order);
       let orderId = reqData._id;
-      let claimingMerchant = query.merchantName || 'testName';
-      let query = {_id:req.query._id};
-      let status = {status:'order-claimed', mfgName: claimingMerchant};
+      console.log('claimedOrder IDIz', orderId);
+      let claimingMerchant = req.query.name || 'testName';
+      let query = {_id : orderId};
+      let update = {status: 'order-claimed', mfgName: claimingMerchant};
 
       return new Promise(function(resolve, reject) {
         //order-placed -> order-processed
-        model.Order.update(query, status, {'upsert':false}, function (err, doc) {
+        model.Order.update(query, update, {'upsert':false}, function (err, doc) {
           if (err) {
-            res.send('UPDATE ERROR: ', err);
+            res.send('CLAIMING ERROR: ', err);
           } else {
+            console.log('inClaimUpdate', doc);
             res.send(doc);
           }
         })
