@@ -62,10 +62,21 @@ module.exports = {
 
   orderProcessed: {
     put: function (req, res) {
-      console.log('hit put orderProcessed');
-      console.log('queryIz', req.query);
-      res.send('todo: update status');
-      //order-placed -> order-processed
+      console.log('orderProcessed queryIz', req.query, req.query._id);
+      var query = {_id:req.query._id};
+      var status = {status:'order-processe'};
+
+      return new Promise(function(resolve, reject) {
+        //order-placed -> order-processed
+        model.Order.update(query, status, {'upsert':false}, function (err, doc) {
+          if (err) {
+            rres.send('UPDATE ERROR: ', err);
+          } else {
+            res.send(doc);
+          }
+        })
+      })
+      // res.send(status);
     }
   },
 
@@ -73,7 +84,8 @@ module.exports = {
     put: function (req, res) {
       console.log('hit put orderClaimed');
       console.log('queryIz', req.query);
-      res.send('todo: specify mfgName');
+      var status = 'order-claimed';
+      res.send(status);
       //order-placed -> order-claimed ?
     }
   },
