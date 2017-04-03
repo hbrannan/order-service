@@ -13,6 +13,8 @@ router.post('/order', utils.order.post);
 
 router.put('/order-processed', utils.orderProcessed.put);
 
+router.put('/order-created', utils.orderCreated.put);
+
 router.get('/user', utils.user.get);
 
 module.exports = router;

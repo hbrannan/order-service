@@ -60,15 +60,19 @@ module.exports = {
     }
   },
 
-  'order-processed': {
+  orderProcessed: {
     put: function (req, res) {
+      console.log('hit put orderProcessed');
+      console.log('queryIz', req.query);
       res.send('todo: update status');
       //order-placed -> order-processed
     }
   },
 
-  'order-claimed': {
+  orderClaimed: {
     put: function (req, res) {
+      console.log('hit put orderClaimed');
+      console.log('queryIz', req.query);
       res.send('todo: specify mfgName');
       //order-placed -> order-claimed ?
     }
