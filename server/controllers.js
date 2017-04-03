@@ -25,7 +25,7 @@ module.exports = {
       });
     },
     post: function (req, res) {
-      console.log('queryIz', req.query);
+      console.log('POSTING NEW queryIz', req.query);
       var entry = req.query;
 
       return new Promise(function(resolve, reject) {
@@ -82,8 +82,11 @@ module.exports = {
   orderClaimed: {
     put: function (req, res) {
       console.log('claimedOrder queryIz', req.query, req.query._id);
-      var query = {_id:req.query._id};
-      var status = {status:'order-claimed', mfgName:'testName'};
+      let reqData = JSON.parse(query.order)
+      let orderId = reqData._id;
+      let claimingMerchant = query.merchantName || 'testName';
+      let query = {_id:req.query._id};
+      let status = {status:'order-claimed', mfgName: claimingMerchant};
 
       return new Promise(function(resolve, reject) {
         //order-placed -> order-processed
