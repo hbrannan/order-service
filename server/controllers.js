@@ -25,16 +25,18 @@ module.exports = {
       });
     },
     post: function (req, res) {
-      console.log('req bodddy iz', req.body);
       console.log('queryIz', req.query);
+      var entry = req.query;
 
       return new Promise(function(resolve, reject) {
         var order = new model.Order({
           status:'order-placed',
-          name: 'Truly being posted...',
-          address: 'Getting there..',
-          quantity: 250,
-          shipping_service: 'Ground',
+          name: entry.name,
+          address: entry.address,
+          quantity: entry.quantity,
+          material: entry.material,
+          dimension: entry.dimension,
+          shipping_service: entry.shippingOption,
           shipping_price: 300,
           unit_price: 300,
           subtotal_price: 300,
