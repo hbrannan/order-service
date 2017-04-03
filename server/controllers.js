@@ -64,13 +64,13 @@ module.exports = {
     put: function (req, res) {
       console.log('orderProcessed queryIz', req.query, req.query._id);
       var query = {_id:req.query._id};
-      var status = {status:'order-processe'};
+      var status = {status:'order-processed'};
 
       return new Promise(function(resolve, reject) {
         //order-placed -> order-processed
         model.Order.update(query, status, {'upsert':false}, function (err, doc) {
           if (err) {
-            rres.send('UPDATE ERROR: ', err);
+            res.send('UPDATE ERROR: ', err);
           } else {
             res.send(doc);
           }
