@@ -60,14 +60,14 @@ module.exports = {
     }
   },
 
-  orderProcessed: {
+  'order-processed': {
     put: function (req, res) {
       res.send('todo: update status');
       //order-placed -> order-processed
     }
   },
 
-  orderClaimed: {
+  'order-claimed': {
     put: function (req, res) {
       res.send('todo: specify mfgName');
       //order-placed -> order-claimed ?
