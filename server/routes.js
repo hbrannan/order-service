@@ -3,18 +3,18 @@ all of the rollowing router routes are subroutes of
 /orders-data
 ---------------------------------------------------*/
 
-var utils = require('./controllers');
+var controllers = require('./controllers');
 var router = require('express').Router();
 
 
-router.get('/order', utils.order.get);
+router.get('/order', controllers.order.get);
 
-router.post('/order', utils.order.post);
+router.post('/order', controllers.order.post);
 
-router.put('/order-processed', utils.orderProcessed.put);
+router.put('/order-processed', controllers.orderProcessed.put);
 
-router.put('/order-created', utils.orderCreated.put);
+router.put('/order-claimed', controllers.orderClaimed.put);
 
-router.get('/user', utils.user.get);
+router.get('/user', controllers.user.get);
 
 module.exports = router;
