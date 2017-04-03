@@ -76,17 +76,25 @@ module.exports = {
           }
         })
       })
-      // res.send(status);
     }
   },
 
   orderClaimed: {
     put: function (req, res) {
-      console.log('hit put orderClaimed');
-      console.log('queryIz', req.query);
-      var status = 'order-claimed';
-      res.send(status);
-      //order-placed -> order-claimed ?
+      console.log('claimedOrder queryIz', req.query, req.query._id);
+      var query = {_id:req.query._id};
+      var status = {status:'order-claimed', mfgName:'testName'};
+
+      return new Promise(function(resolve, reject) {
+        //order-placed -> order-processed
+        model.Order.update(query, status, {'upsert':false}, function (err, doc) {
+          if (err) {
+            res.send('UPDATE ERROR: ', err);
+          } else {
+            res.send(doc);
+          }
+        })
+      })
     }
   },
 
