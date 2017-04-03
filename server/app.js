@@ -1,10 +1,8 @@
 /* Creates Node/Express server
 
 TODOS:
-    connect with mongo mongodb://heroku_7d2ng1k6:npml1vn2mug7tb6ekqn992j1iv@ds143900.mlab.com:43900/heroku_7d2ng1k6
-    restrict access headers
-    favicon to serve lit. anything else
-
+    - restrict CORS
+    - favicon to serve lit. anything else
 ---------------------------------------------------*/
 
 var express = require('express');

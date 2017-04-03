@@ -1,9 +1,9 @@
 /* Defines `Order` schema and model
-
 TODOs:
 --Include users, manufacturers
 --As expand schemas/models, move ea. into sep. folder
-*/
+---------------------------------------------------*/
+
 var db = require('./db-connection');
 
 // Order Schema and Model

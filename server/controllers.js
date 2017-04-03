@@ -1,15 +1,17 @@
 /* Defines route data & behavior
-TODO:
-Promisify controller
+TODOs:
+    -user routes
+    -get order routes -> all orders/ available orders/ my-claimed-orders / my-processed-orders
 ---------------------------------------------------*/
 
 var model = require('./model');
 var utils = require('./utils');
-var Promise = require('bluebird'); //use or loose this
+var Promise = require('bluebird');
 
 module.exports = {
   order: {
     get: function (req, res) {
+
       return new Promise(function (resolve, reject) {
         model.Order.find(function (err, orders) {
           if (err) return reject(err);
@@ -21,11 +23,12 @@ module.exports = {
       })
       .catch(function (err) {
         console.error('err', err);
-        res.send('ERROR', err);
+        res.send('Order retrieval ERROR', err);
       });
+
     },
     post: function (req, res) {
-      console.log('POSTING NEW queryIz', req.query);
+
       var entry = req.query;
 
       return new Promise(function(resolve, reject) {
@@ -56,50 +59,52 @@ module.exports = {
         });
       })
 
-      //TODO:  Save it to heroku-persisted database
     }
   },
 
   orderProcessed: {
+
     put: function (req, res) {
-      console.log('orderProcessed queryIz', req.query, req.query._id);
+
+      console.log('orderProcessed query', req.query);
       var query = {_id:req.query._id};
       var status = {status:'order-processed'};
 
       return new Promise(function(resolve, reject) {
-        //order-placed -> order-processed
         model.Order.update(query, status, {'upsert':false}, function (err, doc) {
           if (err) {
-            res.send('UPDATE ERROR: ', err);
+            res.send('Processing ERROR: ', err);
           } else {
             res.send(doc);
           }
-        })
-      })
+        });
+      });
+
     }
   },
 
   orderClaimed: {
     put: function (req, res) {
-      console.log('claimedOrder nameIz', req.query.name, 'iDIz', req.query.order._id);
+
+      console.log('claimedOrder name', req.query.name);
       let reqData = JSON.parse(req.query.order);
       let orderId = reqData._id;
-      console.log('claimedOrder IDIz', orderId);
+
+      console.log('claimedOrder ID', orderId);
       let claimingMerchant = req.query.name || 'testName';
       let query = {_id : orderId};
       let update = {status: 'order-claimed', mfgName: claimingMerchant};
 
       return new Promise(function(resolve, reject) {
-        //order-placed -> order-processed
         model.Order.update(query, update, {'upsert':false}, function (err, doc) {
           if (err) {
-            res.send('CLAIMING ERROR: ', err);
+            res.send('Claiming ERROR: ', err);
           } else {
-            console.log('inClaimUpdate', doc);
             res.send(doc);
           }
-        })
-      })
+        });
+      });
+
     }
   },
 
